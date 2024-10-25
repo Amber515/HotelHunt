@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
-import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../../firebase/auth';
+import { doSignInWithEmailAndPassword } from '../../../firebase/auth';
 import { useAuth } from '../../../contexts/authContext';
 
 const Login = () => {
@@ -14,23 +14,17 @@ const Login = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         if (!isSigningIn) {
-            setIsSigningIn(true);
-            await doSignInWithEmailAndPassword(email, password);
-        }
-    };
-
-    const onGoogleSignIn = (e) => {
-        e.preventDefault();
-        if (!isSigningIn) {
-            setIsSigningIn(true);
-            doSignInWithGoogle().catch(err => {
-                setIsSigningIn(false);
-            });
+            setIsSigningIn(true); 
+            const result = await doSignInWithEmailAndPassword(email, password);
+            
+            if (result.error) {
+                setErrorMessage(result.error); 
+            } 
+            setIsSigningIn(false); 
         }
     };
 
     return (
-        
         <div className="container mt-5">
             {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
             <main>
@@ -62,11 +56,7 @@ const Login = () => {
                                             onChange={(e) => setPassword(e.target.value)}
                                         />
                                     </div>
-
-                                    {errorMessage && (
-                                        <div className="alert alert-danger">{errorMessage}</div>
-                                    )}
-
+                                    {errorMessage && <div className="alert alert-danger">{errorMessage}</div>} {/* Error message display */}
                                     <button
                                         type="submit"
                                         disabled={isSigningIn}
@@ -74,17 +64,14 @@ const Login = () => {
                                         {isSigningIn ? 'Signing In...' : 'Sign In'}
                                     </button>
                                 </form>
-                                <p className="mt-3 text-center">
-                                    Don't have an account? <Link to={'/register'}>Sign up</Link>
-                                </p>
+                                <p className="mt-3 text-center">Forgot your Password? <Link to={'/reset'} className="text-center text-sm hover:underline font-bold">Reset it here</Link></p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
-
+                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
             </main>
         </div>
     );

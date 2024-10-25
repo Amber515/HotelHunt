@@ -40,7 +40,6 @@ const Register = () => {
                                 className="form-control"
                             />
                         </div>
-
                         <div className="mb-3">
                             <label className="form-label">Password</label>
                             <input
@@ -53,7 +52,6 @@ const Register = () => {
                                 className="form-control"
                             />
                         </div>
-
                         <div className="mb-3">
                             <label className="form-label">Confirm Password</label>
                             <input
@@ -66,11 +64,9 @@ const Register = () => {
                                 className="form-control"
                             />
                         </div>
-
                         {errorMessage && (
                             <div className="text-danger mb-3">{errorMessage}</div>
                         )}
-
                         <button
                             type="submit"
                             disabled={isRegistering}
@@ -78,7 +74,6 @@ const Register = () => {
                         >
                             {isRegistering ? 'Signing Up...' : 'Sign Up'}
                         </button>
-
                         <div className="text-center mt-3">
                             <span className="text-sm">Already have an account? </span>
                             <Link to={'/login'} className="text-primary fw-bold">Continue</Link>
