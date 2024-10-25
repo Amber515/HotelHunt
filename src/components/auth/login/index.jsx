@@ -38,7 +38,7 @@ const Login = () => {
                     <div className="col-md-6">
                         <div className="card">
                             <div className="card-body">
-                                <h3 className="text-center">Welcome Back</h3>
+                                <h3 className="text-center">Please Sign In</h3>
                                 <form onSubmit={onSubmit} className="mt-4">
                                     <div className="mb-3">
                                         <label className="form-label">Email</label>
@@ -56,7 +56,7 @@ const Login = () => {
                                         <input
                                             type="password"
                                             className="form-control"
-                                            autoComplete='current-password'
+                                             autoComplete='current-password'
                                             required
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
@@ -70,7 +70,7 @@ const Login = () => {
                                     <button
                                         type="submit"
                                         disabled={isSigningIn}
-                                        className={`btn btn-primary w-100 ${isSigningIn ? 'disabled' : ''}`}>
+                                        className={`btn btn-primary custom-btn  w-100 ${isSigningIn ? 'disabled' : ''}`}>
                                         {isSigningIn ? 'Signing In...' : 'Sign In'}
                                     </button>
                                 </form>

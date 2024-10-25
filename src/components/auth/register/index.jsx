@@ -74,7 +74,7 @@ const Register = () => {
                         <button
                             type="submit"
                             disabled={isRegistering}
-                            className={`btn btn-primary w-100 ${isRegistering ? 'disabled' : ''}`}
+                            className={`btn btn-primary custom-btn w-100 ${isRegistering ? 'disabled' : ''}`}
                         >
                             {isRegistering ? 'Signing Up...' : 'Sign Up'}
                         </button>
