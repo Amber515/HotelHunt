@@ -1,0 +1,25 @@
+.searchBar {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 4rem;
+    margin-right: 4rem;
+}
+
+.input { 
+    display: flex;
+    flex-direction: column;
+    width: auto;
+}
+
+.welcome {
+    display: flex;
+    flex-direction: column;
+    background-color: #F5CBA0;
+    margin-left: 4rem;
+    margin-top: 4rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    width: 20rem;
+    height: 15rem;
+    justify-content: space-evenly;
+}
