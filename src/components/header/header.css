@@ -1,0 +1,16 @@
+.navbar {
+    height: 6rem;
+    background-color: #A89F91;
+}
+
+.logo {
+    padding-left: 4rem;
+    cursor: pointer;
+}
+
+.links { 
+    padding-right: 4rem;
+    display: flex;
+    justify-content: right;
+    width: 10rem;
+}
