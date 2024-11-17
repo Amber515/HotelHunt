@@ -1,12 +1,17 @@
-import { React } from 'react'
-import { useAuth } from '../../contexts/authContext'
-import { useNavigate } from 'react-router-dom'
-import "./index.css"
+import { React, useEffect } from 'react';
+import { useAuth } from '../../contexts/authContext';
+import { useNavigate } from 'react-router-dom';
+import "./index.css";
 
 
 const Home = () => {
     const { currentUser } = useAuth()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        console.log("Current User:", currentUser);  // This will log currentUser whenever it changes
+      }, [currentUser]);
+
     return (
         <>
             <div className='searchBar'>
@@ -37,6 +42,8 @@ const Home = () => {
                     Search
                 </button>
             </div>
+
+
             <div className="welcome">
                 <div>Hello {currentUser ? currentUser.displayName ? currentUser.displayName : currentUser.email.substr(0,currentUser.email.indexOf('@')) : "Guest"}!</div>
                 <div>{currentUser ? "View your existing bookings here:": "Log in to start booking"}</div>
