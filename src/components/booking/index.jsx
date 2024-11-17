@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/authContext';  
-import { addUserForm } from '../../firebase/firebase'; 
-import { firestore } from '../../firebase/firebase';  
-import { getAuth } from 'firebase/auth'; 
+import { addUserForm, addBooking } from '../../firebase/firebase';  
 
 const Booking = () => {
-    const { userLoggedIn } = useAuth(); 
+    const { currentUser } = useAuth(); 
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -14,39 +12,53 @@ const Booking = () => {
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate(); 
+    const [hotelName, setHotelName] = useState('');
+    const [checkInDate, setCheckInDate] = useState('');
+    const [checkOutDate, setCheckOutDate] = useState('');
+    const [numberOfGuests, setNumberOfGuests] = useState(1);
 
-    const [isSigningIn, setIsSigningIn] = useState(false);
+    const navigate = useNavigate(); 
+    const [isBooking, setIsBooking] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
-    // Handle form submission for signing up
+    // Handle form submission for signing up or booking
     const onSubmit = async (e) => {
         e.preventDefault();
-        if (!isSigningIn) {
 
-            setIsSigningIn(true);
+        let userId;
 
-            if (!userLoggedIn) {
-                // Call the addUserForm function (sign up the user)
-                const result = await addUserForm(email, password, firstName, lastName);
-
-                if (result.error) {
-                    setErrorMessage(result.error);  
-                } else {
-                    navigate('/home'); 
-                }
-            } else {
-                console.log('User is logged in. Proceed with booking...');
-                const result = await addUserForm(email, password, firstName, lastName);
-
-                if (result.error) {
-                    setErrorMessage(result.error);  
-                } else {
-                    navigate('/home'); 
-                }
+        if (!currentUser) {
+            // Call the addUserForm function (sign up the user)
+            const userResult = await addUserForm(email, password, firstName, lastName);
+            if (userResult.error) {
+                setErrorMessage(userResult.error);
+                return;
             }
-            setIsSigningIn(false);
+            userId = userResult.userId; 
+        } else {
+            userId = currentUser.uid; 
         }
+
+        setIsBooking(true);
+
+        const bookingData = {
+            hotelName,
+            checkInDate,
+            checkOutDate,
+            numberOfGuests,
+        };
+
+        const bookingResult = await addBooking(userId, bookingData); 
+
+        if (bookingResult.error) {
+            setErrorMessage(bookingResult.error);
+        } else {
+            // Booking was successful, navigate to home
+            console.log('Booking successful:', bookingResult.bookingId);
+            navigate('/home');  
+        }
+
+        setIsBooking(false);
     };
 
 
@@ -105,7 +117,7 @@ const Booking = () => {
                                             onChange={(e) => setDateOfBirth(e.target.value)}
                                         />
                                     </div>
-                                    {!userLoggedIn && (
+                                    {!currentUser && (
                                     <div className="mb-3" style={{ width: "30%" }}  >
                                         <label className="form-label">Email</label>
                                         <input
@@ -118,7 +130,7 @@ const Booking = () => {
                                         />
                                     </div>
                                     )}
-                                    {!userLoggedIn && (
+                                    {!currentUser && (
                                         <div className="mb-3" style={{ width: "30%" }}  >
                                             <label className="form-label">Password</label>
                                             <input
@@ -132,10 +144,51 @@ const Booking = () => {
                                         </div>
                                     )}
                                     {errorMessage && <div className="alert alert-danger">{errorMessage}</div>} {/* Error message display */}
-                                    <button
+                   <div>
+                                    <label>Hotel Name</label>
+                                    <input
+                                        type="text"
+                                        value={hotelName}
+                                        onChange={(e) => setHotelName(e.target.value)}
+                                        required
+                                    />
+                                    </div>
+
+                                    <div>
+                                    <label>Check-In Date</label>
+                                    <input
+                                        type="date"
+                                        value={checkInDate}
+                                        onChange={(e) => setCheckInDate(e.target.value)}
+                                        required
+                                    />
+                                    </div>
+
+                                    <div>
+                                    <label>Check-Out Date</label>
+                                    <input
+                                        type="date"
+                                        value={checkOutDate}
+                                        onChange={(e) => setCheckOutDate(e.target.value)}
+                                        required
+                                    />
+                                    </div>
+
+                                    <div>
+                                    <label>Number of Guests</label>
+                                    <input
+                                        type="number"
+                                        value={numberOfGuests}
+                                        onChange={(e) => setNumberOfGuests(e.target.value)}
+                                        required
+                                        min="1"
+                                    />
+                                    </div>
+                                
+         <button
                                         type="submit"
-                                        disabled={isSigningIn}
-                                        className={`btn btn-primary custom-btn  w-30 ${isSigningIn ? 'disabled' : ''}`}>
+                                        disabled={isBooking}
+                                        className={`btn btn-primary custom-btn  w-30`}>
                                         Submit
                                     </button>
                                 </form>
