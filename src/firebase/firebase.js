@@ -1,9 +1,7 @@
-// Import the functions you need from the SDKs you need
+// Import the necessary functions from Firebase SDK (v9+ Modular API)
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import {
-  getFirestore, collection, getDocs
-} from 'firebase/firestore'
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -15,24 +13,33 @@ const firebaseConfig = {
   appId: "1:3930904092:web:23edc498658300477a31d9"
 };
 
-// Initialize Firebase
+// Initialize Firebase app
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app)
-//Initialize Service
-const db = getFirestore()
-//Collection reference
-const colRef = collection(db, 'users')
-//Get collection data
-getDocs(colRef)
-  .then((snapshot) => {
-    let users = []
-    snapshot.docs.forEach((doc) => {
-      users.push({ ...doc.data, id: doc.id })
-    })
-    console.log(users)
-})
-.catch(err => {
-  console.log(err.message)
-})
+const auth = getAuth(app);  // Firebase Authentication
+const db = getFirestore(app);  // Firestore
 
-export {app, auth};
+// Function to create a user and save to Firestore
+export const addUserForm = async (email, password, firstName, lastName) => {
+  try {
+    // Step 1: Create user with email and password
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    // Step 2: Save additional user information to Firestore
+    await setDoc(doc(db, 'users', user.uid), {
+      firstName,
+      lastName,
+      email: user.email,
+      uid: user.uid,
+      createdAt: new Date(),
+    });
+
+    // Return user data
+    return { user, error: null };
+  } catch (error) {
+    console.error("Error signing up:", error.message);
+    return { user: null, error: error.message };
+  }
+};
+
+export { app, auth, db };
