@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Navigate, Link } from 'react-router-dom';
-import { useAuth } from '../../contexts/authContext';  // Assuming useAuth hook exists in the authContext
-import { addUserForm } from '../../firebase/firebase'; // Import addUserForm from Firebase
-import { firestore } from '../../firebase/firebase';  // Firestore reference (if needed)
-import { getAuth } from 'firebase/auth'; // Modular SDK Auth
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/authContext';  
+import { addUserForm } from '../../firebase/firebase'; 
+import { firestore } from '../../firebase/firebase';  
+import { getAuth } from 'firebase/auth'; 
 
 const Booking = () => {
-    const { userLoggedIn } = useAuth(); // Assuming this is working properly
+    const { userLoggedIn } = useAuth(); 
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -14,6 +14,7 @@ const Booking = () => {
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate(); 
 
     const [isSigningIn, setIsSigningIn] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -22,21 +23,32 @@ const Booking = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         if (!isSigningIn) {
+
             setIsSigningIn(true);
 
-            // Call the addUserForm function (sign up the user)
-            const result = await addUserForm(email, password, firstName, lastName);
+            if (!userLoggedIn) {
+                // Call the addUserForm function (sign up the user)
+                const result = await addUserForm(email, password, firstName, lastName);
 
-            if (result.error) {
-                setErrorMessage(result.error);  // Show error message if any
+                if (result.error) {
+                    setErrorMessage(result.error);  
+                } else {
+                    navigate('/home'); 
+                }
             } else {
-                // Successfully signed up and saved user in Firestore
-                // You can redirect or do other actions here
-            }
+                console.log('User is logged in. Proceed with booking...');
+                const result = await addUserForm(email, password, firstName, lastName);
 
+                if (result.error) {
+                    setErrorMessage(result.error);  
+                } else {
+                    navigate('/home'); 
+                }
+            }
             setIsSigningIn(false);
         }
     };
+
 
     return (
         <div className="container mt-5">
@@ -93,6 +105,7 @@ const Booking = () => {
                                             onChange={(e) => setDateOfBirth(e.target.value)}
                                         />
                                     </div>
+                                    {!userLoggedIn && (
                                     <div className="mb-3" style={{ width: "30%" }}  >
                                         <label className="form-label">Email</label>
                                         <input
@@ -104,6 +117,7 @@ const Booking = () => {
                                             onChange={(e) => setEmail(e.target.value)}
                                         />
                                     </div>
+                                    )}
                                     {!userLoggedIn && (
                                         <div className="mb-3" style={{ width: "30%" }}  >
                                             <label className="form-label">Password</label>
@@ -121,9 +135,6 @@ const Booking = () => {
                                     <button
                                         type="submit"
                                         disabled={isSigningIn}
-
-                                        Navigate to={'/home'} 
-
                                         className={`btn btn-primary custom-btn  w-30 ${isSigningIn ? 'disabled' : ''}`}>
                                         Submit
                                     </button>

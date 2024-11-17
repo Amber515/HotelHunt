@@ -1,9 +1,8 @@
-// Import the necessary functions from Firebase SDK (v9+ Modular API)
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 
-// Your web app's Firebase configuration
+
 const firebaseConfig = {
   apiKey: "AIzaSyCRLJXpRPePN_iweiBa7uFVX_mmRBKZWEA",
   authDomain: "hotelhunt-2e8aa.firebaseapp.com",
@@ -15,27 +14,42 @@ const firebaseConfig = {
 
 // Initialize Firebase app
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);  // Firebase Authentication
-const db = getFirestore(app);  // Firestore
+const auth = getAuth(app);  
+const db = getFirestore(app);  
 
 // Function to create a user and save to Firestore
 export const addUserForm = async (email, password, firstName, lastName) => {
   try {
-    // Step 1: Create user with email and password
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
+    // Check if the user is already logged in
+    const user = auth.currentUser;
 
-    // Step 2: Save additional user information to Firestore
-    await setDoc(doc(db, 'users', user.uid), {
-      firstName,
-      lastName,
-      email: user.email,
-      uid: user.uid,
-      createdAt: new Date(),
-    });
+    if (user) {
+      // If the user is logged in, proceed to save user info in Firestore
+      await setDoc(doc(db, 'users', user.uid), {
+        firstName,
+        lastName,
+        email: user.email,
+        uid: user.uid,
+        createdAt: new Date(),
+      });
 
-    // Return user data
-    return { user, error: null };
+      return { user, error: null };
+    } else {
+      // If the user is not logged in, sign them up with email and password
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const newUser = userCredential.user;
+
+      // Save additional user information to Firestore
+      await setDoc(doc(db, 'users', newUser.uid), {
+        firstName,
+        lastName,
+        email: newUser.email,
+        uid: newUser.uid,
+        createdAt: new Date(),
+      });
+
+      return { user: newUser, error: null };
+    }
   } catch (error) {
     console.error("Error signing up:", error.message);
     return { user: null, error: error.message };
