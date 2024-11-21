@@ -24,3 +24,19 @@
     height: 15rem;
     justify-content: space-evenly;
 }
+
+.searchBtn {
+    border-radius: 15px;
+}
+
+.searchBtn:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+}
+
+input.form-control {
+    border: 1px solid #000;
+}
+
+.loginBtn:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+}
