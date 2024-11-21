@@ -24,3 +24,7 @@
     height: 15rem;
     justify-content: space-evenly;
 }
+
+.searchBtn {
+    border-radius: 15px;
+}

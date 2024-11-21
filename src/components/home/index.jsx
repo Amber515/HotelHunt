@@ -38,7 +38,7 @@ const Home = () => {
                         min={1}
                     />
                 </div>
-                <button type="submit">
+                <button type="submit" className='searchBtn'>
                     Search
                 </button>
             </div>
