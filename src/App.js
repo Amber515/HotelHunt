@@ -4,6 +4,7 @@ import Register from "./components/auth/register";
 import Header from "./components/header/header";
 import Home from "./components/home";
 import Checkout from "./components/checkout/checkout";
+import Booking from "./components/booking";
 import ResetPassword from './components/auth/reset'; // Adjust path as necessary
 
 import { AuthProvider } from "./contexts/authContext";
@@ -38,6 +39,10 @@ function App() {
     {
       path: "/checkout",
       element: <Checkout />,
+    },
+    {
+      path: "/booking",
+      element: <Booking />,
     },
   ];
   let routesElement = useRoutes(routesArray);
