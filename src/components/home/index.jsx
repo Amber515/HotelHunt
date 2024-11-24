@@ -38,7 +38,7 @@ const Home = () => {
                         min={1}
                     />
                 </div>
-                <button type="submit">
+                <button type="submit" className='searchBtn'>
                     Search
                 </button>
             </div>
@@ -47,7 +47,7 @@ const Home = () => {
             <div className="welcome">
                 <div>Hello {currentUser ? currentUser.displayName ? currentUser.displayName : currentUser.email.substr(0,currentUser.email.indexOf('@')) : "Guest"}!</div>
                 <div>{currentUser ? "View your existing bookings here:": "Log in to start booking"}</div>
-                <button onClick={() => currentUser ? navigate("/bookings") : navigate("/login")}>
+                <button className="loginBtn" onClick={() => currentUser ? navigate("/bookings") : navigate("/login")}>
                     {currentUser ? "Check Bookings": "Log In"}
                 </button>
             </div>
