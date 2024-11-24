@@ -19,6 +19,7 @@ const Header = () => {
                     <>
                         {/* "Book" link visible only when the user is logged in */}
                         <Link style={{ color: "black", paddingRight: "2rem" }} to="/booking">Book</Link>
+                        <Link style={{ color: "black", paddingRight: "2rem" }} to="/history">History</Link>
                         <Link 
                             style={{ color: "black" }} 
                             onClick={() => { 

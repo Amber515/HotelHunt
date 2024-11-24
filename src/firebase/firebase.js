@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, doc, setDoc, collection, addDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, collection, addDoc, getDoc, getDocs  } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCRLJXpRPePN_iweiBa7uFVX_mmRBKZWEA",
@@ -68,6 +68,43 @@ export const addBooking = async (userId, bookingData) => {
   } catch (error) {
     console.error("Error saving booking:", error.message);
     return { bookingId: null, error: error.message };
+  }
+};
+
+// Function to fetch user data from Firestore
+export const getUserData = async (userId) => {
+  try {
+    const userDocRef = doc(db, 'users', userId);
+    const userDoc = await getDoc(userDocRef);
+
+    if (userDoc.exists()) {
+      return { data: userDoc.data(), error: null };
+    } else {
+      console.log("No such user found in Firestore");
+      return { data: null, error: 'User not found' };
+    }
+  } catch (error) {
+    console.error("Error fetching user data:", error.message);
+    return { data: null, error: error.message };
+  }
+};
+
+// Function to fetch bookings data for a user
+export const getBookings = async (userId) => {
+  try {
+    const bookingsRef = collection(db, 'users', userId, 'bookings');
+    const bookingsSnapshot = await getDocs(bookingsRef);
+
+    if (!bookingsSnapshot.empty) {
+      const bookings = bookingsSnapshot.docs.map(doc => doc.data());
+      return { bookings, error: null };
+    } else {
+      console.log("No bookings found for this user");
+      return { bookings: [], error: 'No bookings found' };
+    }
+  } catch (error) {
+    console.error("Error fetching bookings:", error.message);
+    return { bookings: [], error: error.message };
   }
 };
 
