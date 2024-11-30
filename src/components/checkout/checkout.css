@@ -1,0 +1,43 @@
+.bookingDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.checkout {
+    display: flex;
+    flex-direction: column;
+    background-color: #F5CBA0;
+    align-items: center;
+    padding: 1rem;
+}
+
+.checkoutForm {
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.input { 
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    padding: 1rem;
+    width: 33%;
+}
+
+.confirm {
+    display: flex;
+    flex-direction: row;
+    padding-top: 1rem;
+}
+
+input, select {
+    height: 30px;
+}
