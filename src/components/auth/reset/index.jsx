@@ -26,7 +26,7 @@ const ResetPassword = () => {
     }
   };
 
-  if (userLoggedIn) return <Navigate to={'/home'} replace={true} />; // Redirect if logged in
+  if (userLoggedIn) return <Navigate to={'/'} replace={true} />; // Redirect if logged in
 
   return (
     <div className="container mt-5">

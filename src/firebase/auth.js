@@ -47,6 +47,6 @@ export const doSignOut = () => {
 
 export const doSendEmailVerification = () => {
   return sendEmailVerification(auth.currentUser, {
-    url: `${window.location.origin}/home`,
+    url: `${window.location.origin}/`,
   });
 };

@@ -75,7 +75,7 @@ const Booking = () => {
             setErrorMessage(bookingResult.error);
         } else {
             console.log('Booking successful:', bookingResult.bookingId);
-            navigate('/home');  
+            navigate('/');  
         }
 
         setIsBooking(false);

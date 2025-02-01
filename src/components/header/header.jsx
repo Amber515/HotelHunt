@@ -11,7 +11,7 @@ const Header = () => {
     return (
         <div className='navbar'>
             <div className='logo'>
-                <h1 onClick={() => navigate('/home')}>Hotel Hunt</h1>
+                <h1 onClick={() => navigate('/')}>Hotel Hunt</h1>
             </div>
 
             <div className='links'>
