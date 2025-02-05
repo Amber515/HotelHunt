@@ -1,24 +1,58 @@
 import { React, useEffect } from 'react';
-import { useAuth } from '../../contexts/authContext';
-import { useNavigate } from 'react-router-dom';
+import {useAuth} from '../../contexts/authContext';
+import {useNavigate} from 'react-router-dom';
+import axios from 'axios'
 import "./index.css";
 
 
-const Home = () => {
+const Home = ({setHotels}) => {
     const { currentUser } = useAuth()
     const navigate = useNavigate()
 
     useEffect(() => {
         console.log("Current User:", currentUser);  // This will log currentUser whenever it changes
       }, [currentUser]);
+    
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log(e)
+
+        let city = e.target[0].value.trim().toLowerCase()
+        if(city !== "")  {
+            axios.get('https://hotelhunt.adam-z.dev/gethotels/cityname?cityname=' + city).then(function(response){
+                console.log(response.data)
+                setHotels(response.data)
+                navigate('/search')
+            }
+            ).catch(function (error) {
+                console.log(error)
+            })
+            navigate("/search")
+        }
+    }
 
     return (
         <>
-            <div className='searchBar'>
+            <SearchForm handleSubmit={handleSubmit}/>
+
+            <div className="welcome">
+                <div>Hello {getCurrentUserName(currentUser)}!</div>
+                <div>{currentUser ? "View your existing bookings here:": "Log in to start booking"}</div>
+                <button className="loginBtn" onClick={() => currentUser ? navigate("/bookings") : navigate("/login")}>
+                    {currentUser ? "Check Bookings": "Log In"}
+                </button>
+            </div>
+        </>
+    )
+}
+
+export function SearchForm({handleSubmit}) {
+    return (
+        <form className='searchBar' onSubmit={handleSubmit}>
                 <div className="input">
                     <label className="form-label">Destination</label>
                     <input
-                        placeholder='City, State'
+                        placeholder='City'
                         className="form-control"
                     />
                 </div>
@@ -41,18 +75,16 @@ const Home = () => {
                 <button type="submit" className='searchBtn'>
                     Search
                 </button>
-            </div>
-
-
-            <div className="welcome">
-                <div>Hello {currentUser ? currentUser.displayName ? currentUser.displayName : currentUser.email.substr(0,currentUser.email.indexOf('@')) : "Guest"}!</div>
-                <div>{currentUser ? "View your existing bookings here:": "Log in to start booking"}</div>
-                <button className="loginBtn" onClick={() => currentUser ? navigate("/bookings") : navigate("/login")}>
-                    {currentUser ? "Check Bookings": "Log In"}
-                </button>
-            </div>
-        </>
+            </form>
     )
+}
+
+function getCurrentUserName(currentUser) {
+    return currentUser ? 
+        currentUser.displayName ? 
+            currentUser.displayName : 
+            currentUser.email.substr(0,currentUser.email.indexOf('@')) : 
+        "Guest"
 }
 
 export default Home

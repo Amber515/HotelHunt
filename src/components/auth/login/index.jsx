@@ -26,7 +26,7 @@ const Login = () => {
 
     return (
         <div className="container mt-5">
-            {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
+            {userLoggedIn && (<Navigate to={'/'} replace={true} />)}
             <main>
                 <div className="row justify-content-center">
                     <div className="col-md-6">

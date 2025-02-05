@@ -51,7 +51,7 @@ const Register = () => {
 
     // If the user is logged in, redirect to home
     if (userLoggedIn) {
-        return <Navigate to={'/home'} replace={true} />;
+        return <Navigate to={'/'} replace={true} />;
     }
 
     return (

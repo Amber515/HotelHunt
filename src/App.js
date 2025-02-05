@@ -6,20 +6,24 @@ import Home from "./components/home";
 import Checkout from "./components/checkout/checkout";
 import Booking from "./components/booking";
 import History from "./components/history";
+import SearchResults from "./components/searchResults/searchResults";
 import ResetPassword from './components/auth/reset'; // Adjust path as necessary
 
 import { AuthProvider } from "./contexts/authContext";
 import { useRoutes } from "react-router-dom";
+
+import {useState} from 'react'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 
 function App() {
+  const [hotels, setHotels] = useState([])
   const routesArray = [
     {
       path: "*",
-      element: <Home />,
+      element: <Home setHotels={setHotels}/>,
     },
     {
       path: "/login",
@@ -34,10 +38,6 @@ function App() {
       element: <ResetPassword />,
     },
     {
-      path: "/home",
-      element: <Home />,
-    },
-    {
       path: "/checkout",
       element: <Checkout />,
     },
@@ -49,6 +49,10 @@ function App() {
       path: "/history",
       element: <History />,
     },
+    {
+      path: "/search",
+      element: <SearchResults hotels={hotels} setHotels={setHotels}/>
+    }
   ];
   let routesElement = useRoutes(routesArray);
   return (
