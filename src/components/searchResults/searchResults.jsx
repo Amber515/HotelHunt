@@ -19,8 +19,21 @@ function SearchResults({hotels, setHotels}) {
 
 function HotelListing({hotel}) {
     return (
+        //Adding hover text with descrption on Image
         <div>
             Hotel Name: {hotel.name}
+        
+            Hotel Rating: {hotel.rating}
+        
+            Hotel Address: {hotel.address}
+        
+            Hotel Description: {hotel.description}
+       
+            Hotel location: {hotel.cordinates}
+       
+            Hotel Number: {hotel.phoneNumber}
+       
+            Hotel Rate: {hotel.rate}
         </div>
     )
 }
