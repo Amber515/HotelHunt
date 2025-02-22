@@ -1,7 +1,6 @@
 import { React, useEffect } from 'react';
 import {useAuth} from '../../contexts/authContext';
 import {useNavigate} from 'react-router-dom';
-import axios from 'axios'
 import "./index.css";
 
 
@@ -20,15 +19,7 @@ const Home = ({setHotels}) => {
         let city = e.target[0].value.trim().toLowerCase()
         if(city !== "")  {
             setHotels([])
-            axios.get('https://hotelhunt.adam-z.dev/gethotels/cityname?cityname=' + city).then(function(response){
-                console.log(response.data)
-                setHotels(response.data)
-                navigate('/search')
-            }
-            ).catch(function (error) {
-                console.log(error)
-            })
-            navigate("/search")
+            navigate('/search?city=' + city)
         }
     }
 
