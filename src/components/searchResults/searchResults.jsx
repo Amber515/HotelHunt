@@ -56,7 +56,7 @@ function formatPhoneNumber(phoneNumber) {
     // Check if the cleaned number has 11 digits
     if (cleaned.length === 11) {
         // Format the number as (X-XXX-XXX-XXXX)
-        let formatted = cleaned.replace(/(\d{1})(\d{3})(\d{3})(\d{4})/, '($1-$2-$3-$4)');
+        let formatted = cleaned.replace(/(\d{1})(\d{3})(\d{3})(\d{4})/, '+$1-$2-$3-$4');
         return formatted;
     } else {
         // Return the original phone number if it doesn't have 11 digits
