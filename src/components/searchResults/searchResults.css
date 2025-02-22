@@ -1,0 +1,24 @@
+.hotelListing {
+    display: flex;
+    flex-direction: column;
+    border: 4px solid black;
+    margin-bottom: 8px;
+    padding: 8px;
+}
+
+.hotelListingTop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 50%;
+}
+
+.hotelListingTopLeft {
+    display: flex;
+    flex-direction: column;
+}
+
+.hotelListingTopRight {
+    display: flex;
+    flex-direction: column;
+}

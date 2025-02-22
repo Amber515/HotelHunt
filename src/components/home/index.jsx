@@ -19,6 +19,7 @@ const Home = ({setHotels}) => {
 
         let city = e.target[0].value.trim().toLowerCase()
         if(city !== "")  {
+            setHotels([])
             axios.get('https://hotelhunt.adam-z.dev/gethotels/cityname?cityname=' + city).then(function(response){
                 console.log(response.data)
                 setHotels(response.data)

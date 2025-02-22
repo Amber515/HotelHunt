@@ -1,4 +1,5 @@
 import {SearchForm} from '../home'
+import './searchResults.css'
 function SearchResults({hotels, setHotels}) {
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -20,20 +21,28 @@ function SearchResults({hotels, setHotels}) {
 function HotelListing({hotel}) {
     return (
         //Adding hover text with descrption on Image
-        <div>
-            Hotel Name: {hotel.name}
+        <div className="hotelListing">
+            
+            <div className='hotelListingTop'>
+                
+                <div className='hotelListingTopLeft'>
+                    <div className="hotelListingItem">Hotel Name: {hotel.name}</div>
+            
+                    <div className="hotelListingItem">Hotel Rating: {hotel.rating}</div>
+
+                    <div className="hotelListingItem" style={{textTransform:"capitalize"}}>Hotel Address: {hotel.address.toLowerCase()}</div>
+                </div>
+                
+                <div className='hotelListingTopRight'>
+                    <div className="hotelListingItem">Hotel Number: {hotel.phoneNumber}</div>
         
-            Hotel Rating: {hotel.rating}
-        
-            Hotel Address: {hotel.address}
-        
-            Hotel Description: {hotel.description}
-       
-            Hotel location: {hotel.cordinates}
-       
-            Hotel Number: {hotel.phoneNumber}
-       
-            Hotel Rate: {hotel.rate}
+                    <div className="hotelListingItem">Hotel Rate: {hotel.rate}</div>
+                </div>
+                
+            </div>
+            
+            <div className="hotelListingItem" dangerouslySetInnerHTML={{ __html: "Hotel Description: " + hotel.description }}/>
+          
         </div>
     )
 }
