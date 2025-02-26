@@ -2,7 +2,9 @@
     display: flex;
     flex-direction: column;
     border: 4px solid black;
+    margin-top: 8px;
     margin-bottom: 8px;
+    background-color: bisque;
     padding: 8px;
 }
 
@@ -11,6 +13,7 @@
     flex-direction: row;
     justify-content: space-between;
     width: 60%;
+    font-weight: bold;
 }
 
 .hotelListingTopLeft {
