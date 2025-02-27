@@ -85,7 +85,7 @@ function HotelListing({hotel}) {
                 
             </div>
             
-            <div className="hotelListingItem" dangerouslySetInnerHTML={{ __html: "Hotel Description: " + hotel.description }}/>
+            <div className="hotelListingItem" style={{ marginTop: "16px" }}dangerouslySetInnerHTML={{ __html: "Hotel Description: " + hotel.description }}/>
         </div>
     );
 }
