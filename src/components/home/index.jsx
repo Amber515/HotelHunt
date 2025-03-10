@@ -45,6 +45,7 @@ export function SearchForm({handleSubmit}) {
                     <label className="form-label">Destination</label>
                     <input
                         placeholder='City'
+                        defaultValue={new URLSearchParams(window.location.search).get('city')}
                         className="form-control"
                     />
                 </div>
