@@ -6,6 +6,7 @@ import Home from "./components/home";
 import Checkout from "./components/checkout/checkout";
 import Booking from "./components/booking";
 import History from "./components/history";
+import Map from "./components/map";
 import SearchResults from "./components/searchResults/searchResults";
 import ResetPassword from './components/auth/reset'; // Adjust path as necessary
 import Bookings from "./components/bookings/bookings";
@@ -29,6 +30,10 @@ function App() {
     {
       path: "/login",
       element: <Login />,
+    },
+    {
+      path: "/map",
+      element: <Map />,
     },
     {
       path: "/register",
