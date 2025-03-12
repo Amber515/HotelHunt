@@ -71,10 +71,10 @@ export function SearchForm({ handleSubmit, setCity, setStartDate, setEndDate, se
             <div className="input">
                 <label className="form-label">Destination</label>
                 <input
-                    placeholder='City'
-                    className="form-control"
-                    onChange={(e) => setCity(e.target.value)}
-                />
+                         placeholder='City'
+                         defaultValue={new URLSearchParams(window.location.search).get('city')}
+                         className="form-control"
+                     />
             </div>
             <div className="input">
                 <label className="form-label">Start</label>
