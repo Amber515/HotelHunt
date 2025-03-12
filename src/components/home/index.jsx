@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "./index.css";
 
-// Home component
 const Home = ({ setHotels }) => {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
@@ -14,7 +13,7 @@ const Home = ({ setHotels }) => {
     const [numberGuests, setNumberGuests] = useState(1);
 
     useEffect(() => {
-        console.log("Current User:", currentUser);  // This will log currentUser whenever it changes
+        console.log("Current User:", currentUser);  
     }, [currentUser]);
 
     const handleSubmit = (e) => {
@@ -64,7 +63,7 @@ const Home = ({ setHotels }) => {
     );
 }
 
-// SearchForm component
+
 export function SearchForm({ handleSubmit, setCity, setStartDate, setEndDate, setNumberGuests, startDate, endDate, numberGuests }) {
     return (
         <form className='searchBar' onSubmit={handleSubmit}>
@@ -80,16 +79,16 @@ export function SearchForm({ handleSubmit, setCity, setStartDate, setEndDate, se
                 <label className="form-label">Start</label>
                 <input 
                     type="date" 
-                    value={startDate} // Bind value to state
-                    onChange={(e) => setStartDate(e.target.value)} // Update state on change
+                    value={startDate} 
+                    onChange={(e) => setStartDate(e.target.value)} 
                 />
             </div>
             <div className="input">
                 <label className="form-label">End</label>
                 <input 
                     type="date" 
-                    value={endDate} // Bind value to state
-                    onChange={(e) => setEndDate(e.target.value)} // Update state on change
+                    value={endDate} 
+                    onChange={(e) => setEndDate(e.target.value)} 
                 />
             </div>
             <div className="input">
@@ -98,8 +97,8 @@ export function SearchForm({ handleSubmit, setCity, setStartDate, setEndDate, se
                     className="form-control"
                     type='number'
                     min={1}
-                    value={numberGuests} // Bind value to state
-                    onChange={(e) => setNumberGuests(e.target.value)} // Update state on change
+                    value={numberGuests} 
+                    onChange={(e) => setNumberGuests(e.target.value)} 
                 />
             </div>
             <button type="submit" className='searchBtn'>
@@ -109,7 +108,6 @@ export function SearchForm({ handleSubmit, setCity, setStartDate, setEndDate, se
     );
 }
 
-// Helper function to get the user name
 function getCurrentUserName(currentUser) {
     return currentUser ? 
         currentUser.displayName ? 
@@ -118,5 +116,4 @@ function getCurrentUserName(currentUser) {
         "Guest";
 }
 
-// Default export for Home component
 export default Home;

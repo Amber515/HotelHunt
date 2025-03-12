@@ -9,7 +9,6 @@ function SearchResults({ hotels, setHotels }) {
     const location = useLocation();
     const navigate = useNavigate();
 
-    // Destructure state values passed from the Home page
     const { city, startDate, endDate, numberGuests } = location.state || {};
 
     useEffect(() => {
@@ -30,8 +29,8 @@ function SearchResults({ hotels, setHotels }) {
     };
 
     const handleHotelClick = (hotel) => {
-        const numberAdults = numberGuests; // Use numberGuests from the state
-        const numberChildren = 0; // Set as needed
+        const numberAdults = numberGuests; 
+        const numberChildren = 0; 
 
         // Pass hotel, startDate, endDate, numberGuests, numberChildren to Checkout page
         navigate('/checkout', {
