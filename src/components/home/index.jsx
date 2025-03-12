@@ -67,7 +67,7 @@ const Home = ({ setHotels }) => {
 export function SearchForm({ handleSubmit, setCity, setStartDate, setEndDate, setNumberGuests, startDate, endDate, numberGuests }) {
     return (
         <form className='searchBar' onSubmit={handleSubmit}>
-<<<<<<< HEAD
+
             <div className="input">
                 <label className="form-label">Destination</label>
                 <input
@@ -107,37 +107,7 @@ export function SearchForm({ handleSubmit, setCity, setStartDate, setEndDate, se
             </button>
         </form>
     );
-=======
-                <div className="input">
-                    <label className="form-label">Destination</label>
-                    <input
-                        placeholder='City'
-                        defaultValue={new URLSearchParams(window.location.search).get('city')}
-                        className="form-control"
-                    />
-                </div>
-                <div className="input">
-                    <label className="form-label">Start</label>
-                    <input type="date"></input>
-                </div>
-                <div className="input">
-                    <label className="form-label">End</label>
-                    <input type="date"></input>
-                </div>
-                <div className="input">
-                    <label className="form-label"># of Guests</label>
-                    <input
-                        className="form-control"
-                        type='number'
-                        min={1}
-                    />
-                </div>
-                <button type="submit" className='searchBtn'>
-                    Search
-                </button>
-            </form>
-    )
->>>>>>> origin/main
+
 }
 
 function getCurrentUserName(currentUser) {
