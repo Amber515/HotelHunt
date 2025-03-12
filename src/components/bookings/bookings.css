@@ -1,0 +1,32 @@
+/* Existing bookings container */
+.existingBookingsContainer {
+	text-align: center;
+}
+
+.existingBookingsContainer h1 {
+	margin: 0;
+	padding-top: 15px;
+	padding-bottom: 5px;
+}
+
+.existingBookingsContainer p {
+	margin: 0;
+	padding: 10px 0;
+}
+
+/* Bookings container */
+.existingBookingsContainer .bookingsContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.existingBookingsContainer .bookingsContainer .booking {
+	background-color: #F5CBA0;
+	width: 80%;
+	margin: 10px;
+	padding: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

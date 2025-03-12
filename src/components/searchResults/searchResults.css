@@ -16,6 +16,57 @@
     font-weight: bold;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    list-style: none;
+}
+
+.page {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.page a {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    color: #007bff;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.page a:hover {
+    background-color: #f1f1f1;
+}
+
+.previous, .next {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.previous a, .next a {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    color: #007bff;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.previous a:hover, .next a:hover {
+    background-color: #f1f1f1;
+}
+
+.active a {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+
+.active a:hover {
+    background-color: #0056b3;
+}
+
 .hotelListingTopLeft {
     display: flex;
     flex-direction: column;
@@ -25,3 +76,27 @@
     display: flex;
     flex-direction: column;
 }
+
+.sort {
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0;
+}
+
+.sort .dropdown {
+    margin: 0 10px;
+}
+
+.sort .dropdown .dropdown-toggle {
+    background-color: #007bff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.sort .dropdown .dropdown-menu {
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+

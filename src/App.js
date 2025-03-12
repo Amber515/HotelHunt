@@ -9,6 +9,7 @@ import History from "./components/history";
 import Map from "./components/map";
 import SearchResults from "./components/searchResults/searchResults";
 import ResetPassword from './components/auth/reset'; // Adjust path as necessary
+import Bookings from "./components/bookings/bookings";
 
 import { AuthProvider } from "./contexts/authContext";
 import { useRoutes } from "react-router-dom";
@@ -57,6 +58,10 @@ function App() {
     {
       path: "/search",
       element: <SearchResults hotels={hotels} setHotels={setHotels}/>
+    },
+    {
+      path: "/bookings",
+      element: <Bookings />
     }
   ];
   let routesElement = useRoutes(routesArray);
