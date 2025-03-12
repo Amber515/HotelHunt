@@ -11,6 +11,7 @@ import SearchResults from "./components/searchResults/searchResults";
 import ResetPassword from './components/auth/reset'; // Adjust path as necessary
 import Bookings from "./components/bookings/bookings";
 
+
 import { AuthProvider } from "./contexts/authContext";
 import { useRoutes } from "react-router-dom";
 
