@@ -33,3 +33,11 @@
 .card-body{
     background-color: bisque;
 }
+.bookingLabel {
+	margin-right: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+.bookingLabelLast {
+	margin-right: 0.5rem;
+	margin-bottom: 1rem;
+}

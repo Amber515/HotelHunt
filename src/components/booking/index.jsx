@@ -167,7 +167,7 @@ const Booking = () => {
                                     {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
 
                                     <div>
-                                        <label>Hotel Name</label>
+                                        <label className="bookingLabel">Hotel Name</label>
                                         <input
                                             type="text"
                                             value={hotelName}
@@ -177,7 +177,7 @@ const Booking = () => {
                                     </div>
 
                                     <div>
-                                        <label>Check-In Date</label>
+                                        <label className="bookingLabel">Check-In Date</label>
                                         <input
                                             type="date"
                                             value={checkInDate}
@@ -187,7 +187,7 @@ const Booking = () => {
                                     </div>
 
                                     <div>
-                                        <label>Check-Out Date</label>
+                                        <label className="bookingLabel">Check-Out Date</label>
                                         <input
                                             type="date"
                                             value={checkOutDate}
@@ -197,7 +197,7 @@ const Booking = () => {
                                     </div>
 
                                     <div>
-                                        <label>Number of Guests</label>
+                                        <label className="bookingLabelLast">Number of Guests</label>
                                         <input
                                             type="number"
                                             value={numberOfGuests}
