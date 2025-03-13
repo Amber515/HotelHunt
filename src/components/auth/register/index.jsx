@@ -58,7 +58,7 @@ const Register = () => {
     return (
         <>
             <main className="container d-flex align-items-center justify-content-center vh-100">
-                <div className="card shadow border rounded p-4" style={{ width: '25rem' }}>
+                <div className="card-form shadow border rounded p-4" style={{ width: '25rem' }}>
                     <h3 className="text-center text-gray-800 mb-4">Create a New Account</h3>
                     <form onSubmit={onSubmit}>
                         <div className="mb-3">
