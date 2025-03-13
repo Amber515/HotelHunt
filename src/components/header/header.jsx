@@ -35,11 +35,11 @@ const Header = () => {
                 ) : (
                     <>
                         {/* "Login" and "Register" links visible when the user is not logged in */}
-                        <Link style={{ color: "black", paddingRight: "2rem"  }} to='/map'>Map</Link>
-                        <Link style={{ color: "black", paddingRight: "2rem" }} to="/booking">Book</Link>
+                        <Link className="nav-link" style={{ color: "black", paddingRight: "2rem"  }} to='/map'>Map</Link>
+                        <Link className="nav-link" style={{ color: "black", paddingRight: "2rem" }} to="/booking">Book</Link>
                         
-                        <Link style={{ paddingRight: "2rem", color: "black" }} to='/login'>Login</Link>
-                        <Link style={{ color: "black" }} to='/register'>Register</Link>
+                        <Link className="nav-link" style={{ paddingRight: "2rem", color: "black" }} to='/login'>Login</Link>
+                        <Link className="nav-link" style={{ color: "black" }} to='/register'>Register</Link>
 
                     </>
                 )}
