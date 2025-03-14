@@ -41,3 +41,14 @@
 	margin-right: 0.5rem;
 	margin-bottom: 1rem;
 }
+.btn-light.custom-btn-white {
+    background-color: white !important;
+    color: black !important;
+    border: 1px solid #dee2e6 !important;
+}
+.w-30 {
+    width: 30% !important;
+}
+.btn-light.custom-btn-white:hover {
+	font-weight: bold;
+}

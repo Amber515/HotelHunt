@@ -22,6 +22,17 @@ const Booking = () => {
     const [isBooking, setIsBooking] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
+    const isFormComplete = 
+        firstName.trim() !== '' && 
+        lastName.trim() !== '' &&
+        email.trim() !== '' &&
+        phone.trim() !== '' &&
+        dateOfBirth.trim() !== '' &&
+        password.trim() !== '' &&
+        hotelName.trim() !== '' &&
+        checkInDate !== '' &&
+        checkOutDate !== '';
+
     // Fetch additional user data from Firestore if the user is logged in
     useEffect(() => {
         if (currentUser) {
@@ -210,7 +221,11 @@ const Booking = () => {
                                     <button
                                         type="submit"
                                         disabled={isBooking}
-                                        className="btn btn-primary custom-btn w-30"
+                                        className={`btn w-30 ${
+                                            isFormComplete 
+                                                ? 'btn-light custom-btn-white' 
+                                                : 'btn-primary custom-btn'
+                                        }`}
                                     >
                                         Submit
                                     </button>
