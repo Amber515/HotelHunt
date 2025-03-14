@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import { doSignInWithEmailAndPassword } from '../../../firebase/auth';
 import { useAuth } from '../../../contexts/authContext';
+import './index.css';
 
 const Login = () => {
     const { userLoggedIn } = useAuth();
@@ -10,6 +11,10 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [isSigningIn, setIsSigningIn] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+
+    const isFormComplete = 
+        email.trim() !== '' &&
+        password.trim() !== '';
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -60,7 +65,10 @@ const Login = () => {
                                     <button
                                         type="submit"
                                         disabled={isSigningIn}
-                                        className={`btn btn-primary custom-btn  w-100 ${isSigningIn ? 'disabled' : ''}`}>
+                                        className={`btn btn-primary custom-btn  w-100 ${isFormComplete 
+                                            ? 'btn-light custom-btn-white' 
+                                            : 'btn-primary custom-btn'} 
+                                            ${isSigningIn ? 'disabled' : ''}`}>
                                         {isSigningIn ? 'Signing In...' : 'Sign In'}
                                     </button>
                                 </form>
