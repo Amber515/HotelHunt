@@ -16,6 +16,13 @@ const Register = () => {
     const [isRegistering, setIsRegistering] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
+    const isFormComplete = 
+        firstName.trim() !== '' && 
+        lastName.trim() !== '' &&
+        email.trim() !== '' &&
+        password.trim() !== '' &&
+        confirmPassword.trim() !== '';
+
     const onSubmit = async (e) => {
         e.preventDefault();
 
@@ -126,7 +133,11 @@ const Register = () => {
                         <button
                             type="submit"
                             disabled={isRegistering}
-                            className={`btn btn-primary custom-btn w-100 ${isRegistering ? 'disabled' : ''}`}
+                            className={`btn w-100 ${
+                                isFormComplete 
+                                    ? 'btn-light custom-btn-white' 
+                                    : 'btn-primary custom-btn'
+                            }`}
                         >
                             {isRegistering ? 'Signing Up...' : 'Sign Up'}
                         </button>

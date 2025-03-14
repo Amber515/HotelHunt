@@ -1,3 +1,11 @@
 .card-form{
     background-color: bisque;
 }
+.btn-light.custom-btn-white {
+    background-color: white !important;
+    color: black !important;
+    border: 1px solid #dee2e6 !important;
+}
+.btn-light.custom-btn-white:hover {
+	font-weight: bold;
+}
