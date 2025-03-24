@@ -4,7 +4,7 @@ import { useAuth } from '../../../contexts/authContext';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
 import { db, auth } from '../../../firebase/firebase';  
-import './index.css';
+import './register.css';
 
 const Register = () => {
     const { userLoggedIn } = useAuth(); 

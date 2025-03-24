@@ -17,8 +17,8 @@ const Bookings = () => {
 			<p>Click a booking to view or edit details</p>
 			<div className="bookingsContainer">
 				{bookings.length === 0 ? <p>No Bookings Found</p> : bookings.map((booking) => {
-					const startDate = booking.checkInDate.split("-");
-					const endDate = booking.checkOutDate.split("-");
+					const startDate = booking.startDate.split("-");
+					const endDate = booking.endDate.split("-");
 					return(
 						<div className="booking">
 							<p>Booking for {startDate[1]}/{startDate[2]}/{startDate[0]} - {endDate[1]}/{endDate[2]}/{endDate[0]} at {booking.hotelName}</p>

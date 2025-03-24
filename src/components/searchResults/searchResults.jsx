@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaStar, FaRegStar } from "react-icons/fa";
 import './searchResults.css';
-import { SearchForm } from '../home';
+import { SearchForm } from '../home/home';
 import Dropdown from 'react-bootstrap/Dropdown';
  import DropdownButton from 'react-bootstrap/DropdownButton';
  import ReactPaginate from 'react-paginate';
