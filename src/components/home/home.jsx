@@ -18,12 +18,11 @@ const Home = ({ setHotels }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let city = e.target[0].value.trim().toLowerCase();
-        if (city !== "") {
-            axios.get('https://hotelhunt.adam-z.dev/gethotels/cityname?cityname=' + city).then(function (response) {
+        if (city.trim() !== "") {
+            axios.get('https://hotelhunt.adam-z.dev/gethotels/cityname?cityname=' + city.toLowerCase()).then(function (response) {
                 console.log(response.data);
                 setHotels(response.data);
-                navigate('/search', {
+                navigate('/search?city=' + city, {
                     state: {
                         city,
                         startDate,
@@ -71,10 +70,11 @@ export function SearchForm({ handleSubmit, setCity, setStartDate, setEndDate, se
             <div className="input">
                 <label className="form-label">Destination</label>
                 <input
-                         placeholder='City'
-                         defaultValue={new URLSearchParams(window.location.search).get('city')}
-                         className="form-control"
-                     />
+                    placeholder='City'
+                    defaultValue={new URLSearchParams(window.location.search).get('city')}
+                    className="form-control"
+                    onChange={(e) => setCity(e.target.value)}
+                />
             </div>
             <div className="input">
                 <label className="form-label">Start</label>

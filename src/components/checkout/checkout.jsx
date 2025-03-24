@@ -13,7 +13,7 @@ export function Checkout() {
     const { hotel, startDate: initialStartDate, endDate: initialEndDate, numberGuests: initialNumberGuests, numberChildren: initialNumberChildren } = location.state || {};
     const [startDate, setStartDate] = useState(initialStartDate || '');
     const [endDate, setEndDate] = useState(initialEndDate || '');
-    const [numberGuests, setNumberGuests] = useState(initialNumberGuests || 1);
+    const [numberGuests, setNumberGuests] = useState(parseInt(initialNumberGuests) || 1);
     const [numberChildren, setNumberChildren] = useState(initialNumberChildren || 0);
     const [name, setName] = useState("");
     const [roomSize, setRoomSize] = useState('medium'); 
@@ -21,14 +21,19 @@ export function Checkout() {
     const hotelName = hotel?.name || "Test Hotel Suites";
     const hotelAddress = hotel?.address || "1234 Hotel Ave";
     const baseRate = hotel?.rate || "0";
-    const todayDate = new Date();
-    const today = todayDate.toISOString().split('T')[0];
+    //const todayDate = new Date();
+    //const today = todayDate.toISOString().split('T')[0];
     const oneDay = 1000 * 60 * 60 * 24;
     const diffInTime = new Date(endDate).getTime() - new Date(startDate).getTime();
     const diffInDays = Math.round(diffInTime / oneDay);
     const decimalBaseRate = parseFloat(baseRate.replace(/[^0-9.-]+/g, '')); 
-
-    let totalCost = diffInDays * decimalBaseRate * (numberGuests + (numberChildren * 0.2)) * (roomSize === "small" ? 1 : roomSize === "medium" ? 1.25 : 1.5);
+    
+    console.log("Base Rate:", decimalBaseRate);
+    console.log("Diff in Days:", diffInDays);
+    console.log(numberGuests === 3);
+    console.log("Number of Children:", numberChildren);
+    console.log("Room Size:", roomSize);
+    let totalCost = Math.round(diffInDays * decimalBaseRate * (numberGuests + (numberChildren * 0.2)) * (roomSize === "small" ? .75 : roomSize === "medium" ? 1 : 1.25) * 100) / 100;
 
     useEffect(() => {
         if (currentUser) {
@@ -131,7 +136,7 @@ export function Checkout() {
                         </div>
                     </div>
                 </div>
-                <div className="confirm">
+                <div className="confirm" style={{display:"flex", flexDirection:"row", alignItems:"center", gap:".5rem"}}>
                     <div>Total Booking Cost: ${totalCost}</div>
                     <button onClick={onSubmit} type="button">Continue</button>
                 </div>
