@@ -1,17 +1,30 @@
+import { useEffect, useState } from "react";
+import { auth, getBookings } from "../../firebase/firebase";
 import "./bookings.css";
 
 const Bookings = () => {
+	const [bookings, setBookings] = useState([]);
+
+	useEffect(() => {
+		getBookings(auth.currentUser.uid).then((bookingsData) => {
+			setBookings(bookingsData.bookings)
+		});
+	}, {});
+
 	return(
 		<div className="existingBookingsContainer">
 			<h1>Existing Bookings</h1>
 			<p>Click a booking to view or edit details</p>
 			<div className="bookingsContainer">
-				<div className="booking">
-					<p>Booking for 11/11/2025 - 11/13/2025 as 1234 Hotel Ave</p>
-				</div>
-				<div className="booking">
-					<p>Booking for 11/12/2025 - 11/14/2025 as 1234 Hotel Ave</p>
-				</div>
+				{bookings.length === 0 ? <p>No Bookings Found</p> : bookings.map((booking) => {
+					const startDate = booking.checkInDate.split("-");
+					const endDate = booking.checkOutDate.split("-");
+					return(
+						<div className="booking">
+							<p>Booking for {startDate[1]}/{startDate[2]}/{startDate[0]} - {endDate[1]}/{endDate[2]}/{endDate[0]} at {booking.hotelName}</p>
+						</div>
+					);
+				})}
 			</div>
 		</div>
 	);
