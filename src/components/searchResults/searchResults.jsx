@@ -4,16 +4,19 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaStar, FaRegStar } from "react-icons/fa";
 import './searchResults.css';
-import { SearchForm } from '../home';
+import { SearchForm } from '../home/home';
 import Dropdown from 'react-bootstrap/Dropdown';
- import DropdownButton from 'react-bootstrap/DropdownButton';
- import ReactPaginate from 'react-paginate';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import ReactPaginate from 'react-paginate';
 
  
 function SearchResults({ hotels, setHotels }) {
     const location = useLocation();
     const navigate = useNavigate();
-    const { city, startDate, endDate, numberGuests } = location.state || {};
+    const [city, setCity] = useState(location.state?.city || '');
+    const [startDate, setStartDate] = useState(location.state?.startDate || '');
+    const [endDate, setEndDate] = useState(location.state?.endDate || '');
+    const [numberGuests, setNumberGuests] = useState(location.state?.numberGuests || 1);
     const [sort, setSort] = useState("none");
     const sortByRateAscending = (a, b) => parseFloat(a.rate.replace(/[^0-9.-]+/g, "")) - parseFloat(b.rate.replace(/[^0-9.-]+/g, ""));
     const sortByRateDescending = (a, b) => sortByRateAscending(b, a);
@@ -31,10 +34,12 @@ function SearchResults({ hotels, setHotels }) {
     }
 
     useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const city = params.get('city');
         if (city) {
             fetchHotels(city);
         }
-    }, [city]);
+    }, []);
 
     const fetchHotels = (city) => {
         setHotels([]);
@@ -45,6 +50,30 @@ function SearchResults({ hotels, setHotels }) {
             .catch(function (error) {
                 console.log(error);
             });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        let city = e.target[0].value.trim()
+        if (city !== "") {
+            axios.get('https://hotelhunt.adam-z.dev/gethotels/cityname?cityname=' + city.toLowerCase()).then(function (response) {
+                console.log(response.data);
+                setHotels(response.data);
+                navigate('/search?city=' + city, {
+                    state: {
+                        city,
+                        startDate,
+                        endDate,
+                        numberGuests
+                    }
+                });
+            })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        } else {
+            console.log("Please complete all fields");
+        }
     };
 
     const handleHotelClick = (hotel) => {
@@ -66,11 +95,15 @@ function SearchResults({ hotels, setHotels }) {
     return (
         <>
             <SearchForm 
-                city={city} 
+                city={city}
+                setCity={setCity}
                 startDate={startDate} 
+                setStartDate={setStartDate}
                 endDate={endDate} 
+                setEndDate={setEndDate}
                 numberGuests={numberGuests} 
-                handleSubmit={() => {}}
+                setNumberGuests={setNumberGuests}
+                handleSubmit={handleSubmit}
             />
             <div className="sort">
                  <DropdownButton id="dropdown-basic-button" title="Sort by Rating">
@@ -105,7 +138,7 @@ function HotelListing({ hotel }) {
                 </div>
                 <div className='hotelListingTopRight'>
                     <div className="hotelListingItem">Hotel Number: {formatPhoneNumber(hotel.phoneNumber)}</div>
-                    <div className="hotelListingItem">Hotel Rate: ${hotel.rate} Per Adult/Night</div>
+                    <div className="hotelListingItem">Hotel Rate: {hotel.rate} Per Adult/Night</div>
                 </div>
             </div>
         </div>
@@ -119,6 +152,7 @@ function convertRating(rating) {
         case "TwoStar": stars = 2; break;
         case "ThreeStar": stars = 3; break;
         case "FourStar": stars = 4; break;
+        case "All":
         case "FiveStar": stars = 5; break;
         default: stars = 0;
     }

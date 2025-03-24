@@ -1,14 +1,14 @@
-import Login from "./components/auth/login";
-import Register from "./components/auth/register";
+import Login from "./components/auth/login/login";
+import Register from "./components/auth/register/register";
 
 import Header from "./components/header/header";
-import Home from "./components/home";
+import Home from "./components/home/home";
 import Checkout from "./components/checkout/checkout";
 import Booking from "./components/booking";
 import History from "./components/history";
 import Map from "./components/map";
 import SearchResults from "./components/searchResults/searchResults";
-import ResetPassword from './components/auth/reset'; // Adjust path as necessary
+import ResetPassword from './components/auth/reset/reset'; // Adjust path as necessary
 import Bookings from "./components/bookings/bookings";
 
 
