@@ -4,6 +4,7 @@ import { useAuth } from '../../../contexts/authContext';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
 import { db, auth } from '../../../firebase/firebase';  
+import './index.css';
 
 const Register = () => {
     const { userLoggedIn } = useAuth(); 
@@ -14,6 +15,13 @@ const Register = () => {
     const [lastName, setLastName] = useState('');   
     const [isRegistering, setIsRegistering] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+
+    const isFormComplete = 
+        firstName.trim() !== '' && 
+        lastName.trim() !== '' &&
+        email.trim() !== '' &&
+        password.trim() !== '' &&
+        confirmPassword.trim() !== '';
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -57,7 +65,7 @@ const Register = () => {
     return (
         <>
             <main className="container d-flex align-items-center justify-content-center vh-100">
-                <div className="card shadow border rounded p-4" style={{ width: '25rem' }}>
+                <div className="card-form shadow border rounded p-4" style={{ width: '25rem' }}>
                     <h3 className="text-center text-gray-800 mb-4">Create a New Account</h3>
                     <form onSubmit={onSubmit}>
                         <div className="mb-3">
@@ -125,7 +133,11 @@ const Register = () => {
                         <button
                             type="submit"
                             disabled={isRegistering}
-                            className={`btn btn-primary custom-btn w-100 ${isRegistering ? 'disabled' : ''}`}
+                            className={`btn w-100 ${
+                                isFormComplete 
+                                    ? 'btn-light custom-btn-white' 
+                                    : 'btn-primary custom-btn'
+                            }`}
                         >
                             {isRegistering ? 'Signing Up...' : 'Sign Up'}
                         </button>

@@ -22,6 +22,17 @@ const Booking = () => {
     const [isBooking, setIsBooking] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
+    const isFormComplete = 
+        firstName.trim() !== '' && 
+        lastName.trim() !== '' &&
+        email.trim() !== '' &&
+        phone.trim() !== '' &&
+        dateOfBirth.trim() !== '' &&
+        password.trim() !== '' &&
+        hotelName.trim() !== '' &&
+        checkInDate !== '' &&
+        checkOutDate !== '';
+
     // Fetch additional user data from Firestore if the user is logged in
     useEffect(() => {
         if (currentUser) {
@@ -167,7 +178,7 @@ const Booking = () => {
                                     {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
 
                                     <div>
-                                        <label>Hotel Name</label>
+                                        <label className="bookingLabel">Hotel Name</label>
                                         <input
                                             type="text"
                                             value={hotelName}
@@ -177,7 +188,7 @@ const Booking = () => {
                                     </div>
 
                                     <div>
-                                        <label>Check-In Date</label>
+                                        <label className="bookingLabel">Check-In Date</label>
                                         <input
                                             type="date"
                                             value={checkInDate}
@@ -187,7 +198,7 @@ const Booking = () => {
                                     </div>
 
                                     <div>
-                                        <label>Check-Out Date</label>
+                                        <label className="bookingLabel">Check-Out Date</label>
                                         <input
                                             type="date"
                                             value={checkOutDate}
@@ -197,7 +208,7 @@ const Booking = () => {
                                     </div>
 
                                     <div>
-                                        <label>Number of Guests</label>
+                                        <label className="bookingLabelLast">Number of Guests</label>
                                         <input
                                             type="number"
                                             value={numberOfGuests}
@@ -210,7 +221,11 @@ const Booking = () => {
                                     <button
                                         type="submit"
                                         disabled={isBooking}
-                                        className="btn btn-primary custom-btn w-30"
+                                        className={`btn w-30 ${
+                                            isFormComplete 
+                                                ? 'btn-light custom-btn-white' 
+                                                : 'btn-primary custom-btn'
+                                        }`}
                                     >
                                         Submit
                                     </button>
