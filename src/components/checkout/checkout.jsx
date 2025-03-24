@@ -28,11 +28,6 @@ export function Checkout() {
     const diffInDays = Math.round(diffInTime / oneDay);
     const decimalBaseRate = parseFloat(baseRate.replace(/[^0-9.-]+/g, '')); 
     
-    console.log("Base Rate:", decimalBaseRate);
-    console.log("Diff in Days:", diffInDays);
-    console.log(numberGuests === 3);
-    console.log("Number of Children:", numberChildren);
-    console.log("Room Size:", roomSize);
     let totalCost = Math.round(diffInDays * decimalBaseRate * (numberGuests + (numberChildren * 0.2)) * (roomSize === "small" ? .75 : roomSize === "medium" ? 1 : 1.25) * 100) / 100;
 
     useEffect(() => {
