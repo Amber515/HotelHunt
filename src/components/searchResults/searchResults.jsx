@@ -105,7 +105,7 @@ function HotelListing({ hotel }) {
                 </div>
                 <div className='hotelListingTopRight'>
                     <div className="hotelListingItem">Hotel Number: {formatPhoneNumber(hotel.phoneNumber)}</div>
-                    <div className="hotelListingItem">Hotel Rate: ${hotel.rate} Per Adult/Night</div>
+                    <div className="hotelListingItem">Hotel Rate: {hotel.rate} Per Adult/Night</div>
                 </div>
             </div>
         </div>
@@ -119,6 +119,7 @@ function convertRating(rating) {
         case "TwoStar": stars = 2; break;
         case "ThreeStar": stars = 3; break;
         case "FourStar": stars = 4; break;
+        case "All":
         case "FiveStar": stars = 5; break;
         default: stars = 0;
     }
