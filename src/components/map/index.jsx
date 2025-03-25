@@ -4,9 +4,8 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/ap
 const HotelMap = () => {
     const [selectedHotel, setSelectedHotel] = useState(null);
     const hotels = [
-        { id: 1, name: 'Hotel One', lat: 40.748817, lng: -73.985428 },  // Example Hotel Data
+        { id: 1, name: 'Hotel One', lat: 40.748817, lng: -73.985428 }, 
         { id: 2, name: 'Hotel Two', lat: 40.749817, lng: -73.986428 },
-        // Add more hotels here
     ];
 
     const mapContainerStyle = {
@@ -22,7 +21,7 @@ const HotelMap = () => {
     return (
         <div>
             <h2>Hotel Search Map</h2>
-            <LoadScript googleMapsApiKey="AIzaSyB8lNdpf-ywSYfPAugfek-fmwPy4FzrHAk">
+            <LoadScript googleMapsApiKey="AIzaSyAUogeRGQHa2xil-vldFMXoyJMdgPI3C2s">
                 <GoogleMap
                     mapContainerStyle={mapContainerStyle}
                     center={center}
