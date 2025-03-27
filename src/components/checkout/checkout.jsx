@@ -112,6 +112,11 @@ export function Checkout() {
             totalCost,
         };
 
+        if (!startDate || !endDate || !name) {
+            alert('Please fill out all fields');
+            return;
+        }
+
         try {
             const bookingsRef = collection(db, 'users', userId, 'bookings');
             const bookingDocRef = await addDoc(bookingsRef, bookingData);

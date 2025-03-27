@@ -8,6 +8,7 @@ import { SearchForm } from '../home/home';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import ReactPaginate from 'react-paginate';
+import { Spinner } from 'react-bootstrap';
 
  
 function SearchResults({ hotels, setHotels }) {
@@ -117,11 +118,15 @@ function SearchResults({ hotels, setHotels }) {
              </div>
 
 
-             <PaginatedHotelListings 
+             {
+                sortedHotels.length > 0 ? 
+                <PaginatedHotelListings 
                 itemsPerPage={10} 
                 hotels={sortedHotels} 
                 handleHotelClick={handleHotelClick}
-            />
+            /> :<Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span> </Spinner>
+             }
         </>
     );
 }
