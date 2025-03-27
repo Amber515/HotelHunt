@@ -64,6 +64,10 @@ const Home = ({ setHotels }) => {
 
 
 export function SearchForm({ handleSubmit, setCity, setStartDate, setEndDate, setNumberGuests, startDate, endDate, numberGuests }) {
+    const today = new Date().toISOString().split('T')[0];
+    const tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    const dayAfterStartDate = startDate ? new Date(new Date(startDate).getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0] : null;
+    const dayBeforeEndDate = endDate ? new Date(new Date(endDate).getTime() - 24 * 60 * 60 * 1000).toISOString().split('T')[0] : null;
     return (
         <form className='searchBar' onSubmit={handleSubmit}>
 
@@ -71,7 +75,7 @@ export function SearchForm({ handleSubmit, setCity, setStartDate, setEndDate, se
                 <label className="form-label">Destination</label>
                 <input
                     placeholder='City'
-                    defaultValue={new URLSearchParams(window.location.search).get('city')}
+                    value={new URLSearchParams(window.location.search).get('city')}
                     className="form-control"
                     onChange={(e) => setCity(e.target.value)}
                 />
@@ -80,15 +84,17 @@ export function SearchForm({ handleSubmit, setCity, setStartDate, setEndDate, se
                 <label className="form-label">Start</label>
                 <input 
                     type="date" 
-                    value={startDate} 
-                    onChange={(e) => setStartDate(e.target.value)} 
+                    defaultValue={startDate} 
+                    min={today}
+                    onChange={(e) => {setStartDate(e.target.value); if (e.target.value > dayBeforeEndDate) setEndDate('')}}
                 />
             </div>
             <div className="input">
                 <label className="form-label">End</label>
                 <input 
                     type="date" 
-                    value={endDate} 
+                    value={endDate}
+                    min={startDate? dayAfterStartDate : tomorrow}
                     onChange={(e) => setEndDate(e.target.value)} 
                 />
             </div>
