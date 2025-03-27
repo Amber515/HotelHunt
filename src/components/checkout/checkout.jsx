@@ -23,6 +23,11 @@ export function Checkout() {
     const [hotelLatLng, setHotelLatLng] = useState(null); 
     const [isMapsLoaded, setIsMapsLoaded] = useState(false); 
 
+    const today = new Date().toISOString().split('T')[0];
+    const tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    const dayAfterStartDate = startDate ? new Date(new Date(startDate).getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0] : tomorrow;
+    const dayBeforeEndDate = endDate ? new Date(new Date(endDate).getTime() - 24 * 60 * 60 * 1000).toISOString().split('T')[0] : null;
+
     const hotelName = hotel?.name || "Test Hotel Suites";
     const hotelAddress = hotel?.address || "1234 Hotel Ave";
     const hotelDescription = hotel?.description || "This is a placeholder description for the hotel.";
@@ -158,11 +163,11 @@ export function Checkout() {
                     <div className="formRow">
                         <div className="input">
                             <label className="form-label">Start Date</label>
-                            <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+                            <input type="date" value={startDate} min={today} onChange={(e) => {setStartDate(e.target.value); if (e.target.value > dayBeforeEndDate) setEndDate('')}} />
                         </div>
                         <div className="input">
                             <label className="form-label">End Date</label>
-                            <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+                            <input type="date" value={endDate} min={dayAfterStartDate} onChange={(e) => setEndDate(e.target.value)} />
                         </div>
                         <div className="input">
                             <label className="form-label">Name</label>
