@@ -96,7 +96,14 @@ export const getBookings = async (userId) => {
     const bookingsSnapshot = await getDocs(bookingsRef);
 
     if (!bookingsSnapshot.empty) {
-      const bookings = bookingsSnapshot.docs.map(doc => doc.data());
+	  const bookings = [];
+	  bookingsSnapshot.docs.map((doc) => {
+	    let docId = doc.id;
+	    bookings.push({
+		  docId,
+		  ...doc.data()
+		});
+	  });
       return { bookings, error: null };
     } else {
       console.log("No bookings found for this user");
