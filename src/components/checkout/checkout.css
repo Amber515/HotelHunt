@@ -41,3 +41,6 @@
 input, select {
     height: 30px;
 }
+.hotel-description {
+    padding-right: 10px;
+}
