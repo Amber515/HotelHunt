@@ -1,0 +1,18 @@
+.confirmation-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    text-align: center;
+}
+
+.confirmation-container h1 {
+    margin-bottom: 20px;
+}
+
+.confirmation-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}

@@ -124,8 +124,11 @@ function SearchResults({ hotels, setHotels }) {
                 itemsPerPage={10} 
                 hotels={sortedHotels} 
                 handleHotelClick={handleHotelClick}
-            /> :<Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span> </Spinner>
+            /> :<div className="spinner-container">
+            <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </Spinner>
+        </div>
              }
         </>
     );
