@@ -11,8 +11,7 @@ const EditBooking = () => {
     const { currentUser } = useAuth(); 
     const navigate = useNavigate(); 
 
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [hotelName, setHotelName] = useState('');
@@ -32,8 +31,7 @@ const EditBooking = () => {
     const dayAfterStartDate = checkInDate ? new Date(new Date(checkInDate).getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0] : tomorrow;
 
     const isFormComplete = 
-        firstName.trim() !== '' && 
-        lastName.trim() !== '' &&
+        name.trim() !== '' && 
         email.trim() !== '' &&
         password.trim() !== '' &&
         hotelName.trim() !== '' &&
@@ -52,6 +50,8 @@ const EditBooking = () => {
 				if(docSnap.exists()) {
 					setBookingDocId(bookingId);
 					const docData = docSnap.data();
+                    console.log("Booking Data:", docData);
+                    setName(docData.name );
 					setNumberOfGuests(docData.numberGuests);
                     setNumberOfChildren(docData.numberChildren);
 					setCheckInDate(docData.startDate);
@@ -63,18 +63,6 @@ const EditBooking = () => {
 					setBookingDocId(null);
 				}
 			});
-
-			// Fetch firstName and lastName from Firestore
-            const userRef = doc(db, 'users', currentUser.uid); 
-            getDoc(userRef).then(docSnap => {
-                if (docSnap.exists()) {
-                    const userData = docSnap.data();
-                    setFirstName(userData.firstName || ''); 
-                    setLastName(userData.lastName || '');  
-                }
-            }).catch((error) => {
-                console.error("Error fetching user data:", error);
-            });
         }
     }, [currentUser, bookingId]);
 
@@ -84,7 +72,7 @@ const EditBooking = () => {
 
         if (!currentUser) {
             // Call the addUserForm function 
-            const userResult = await addUserForm(email, password, firstName, lastName);
+            const userResult = await addUserForm(email, password, name);
             if (userResult.error) {
                 setErrorMessage(userResult.error);
                 return;
@@ -94,7 +82,7 @@ const EditBooking = () => {
         setIsBooking(true);
 
         const bookingData = {
-            hotelName,
+            name,
             startDate: checkInDate,
             endDate: checkOutDate,
             numberGuests,
@@ -126,27 +114,17 @@ const EditBooking = () => {
                             <div className="card-body">
                                 <h3 className="text-center">Booking Information</h3>
                                 <form onSubmit={onSubmit} className="mt-4">
-                                    <div className="mb-3" style={{ width: "30%" }}>
-                                        <label className="form-label">First Name</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            autoComplete="firstname"
-                                            required
-                                            value={firstName}
-                                            onChange={(e) => setFirstName(e.target.value)}
-                                        />
+                                    <div>
+                                        <label className="bookingLabel">Hotel Name: {hotelName}</label>
                                     </div>
-
-                                    <div className="mb-3" style={{ width: "30%" }}>
-                                        <label className="form-label">Last Name</label>
+                                    <div style={{width: "30%"}}>
+                                        <label className="bookingLabelLast">Name</label>
                                         <input
                                             type="text"
-                                            className="form-control"
-                                            autoComplete="lastname"
+                                            autoComplete="name"
                                             required
-                                            value={lastName}
-                                            onChange={(e) => setLastName(e.target.value)}
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
                                         />
                                     </div>
 
