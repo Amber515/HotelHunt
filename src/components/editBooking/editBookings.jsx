@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/authContext';  
-import { addUserForm, addBooking } from '../../firebase/firebase';  
+import { addUserForm } from '../../firebase/firebase';  
 import { getDoc, doc, setDoc } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';  
 import { useParams } from 'react-router-dom';
@@ -18,7 +18,7 @@ const EditBooking = () => {
     const [hotelName, setHotelName] = useState('');
     const [checkInDate, setCheckInDate] = useState('');
     const [checkOutDate, setCheckOutDate] = useState('');
-    const [numberOfGuests, setNumberOfGuests] = useState(1);
+    const [numberGuests, setNumberOfGuests] = useState(1);
     const [isBooking, setIsBooking] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 	const [bookingDocId, setBookingDocId] = useState();
@@ -44,9 +44,9 @@ const EditBooking = () => {
 				if(docSnap.exists()) {
 					setBookingDocId(bookingId);
 					const docData = docSnap.data();
-					setNumberOfGuests(docData.numberOfGuests);
-					setCheckInDate(docData.checkInDate);
-					setCheckOutDate(docData.checkOutDate);
+					setNumberOfGuests(docData.numberGuests);
+					setCheckInDate(docData.startDate);
+					setCheckOutDate(docData.endDate);
 					setHotelName(docData.hotelName);
 				} else {
 					setBookingDocId(null);
@@ -65,13 +65,11 @@ const EditBooking = () => {
                 console.error("Error fetching user data:", error);
             });
         }
-    }, [currentUser]);
+    }, [currentUser, bookingId]);
 
 
     const onSubmit = async (e) => {
         e.preventDefault();
-
-        let userId;
 
         if (!currentUser) {
             // Call the addUserForm function 
@@ -80,18 +78,15 @@ const EditBooking = () => {
                 setErrorMessage(userResult.error);
                 return;
             }
-            userId = userResult.userId; 
-        } else {
-            userId = currentUser.uid; 
         }
 
         setIsBooking(true);
 
         const bookingData = {
             hotelName,
-            checkInDate,
-            checkOutDate,
-            numberOfGuests,
+            startDate: checkInDate,
+            endDate: checkOutDate,
+            numberGuests,
         };
 
 		// Set booking doc
@@ -203,7 +198,7 @@ const EditBooking = () => {
                                         <label className="bookingLabelLast">Number of Guests</label>
                                         <input
                                             type="number"
-                                            value={numberOfGuests}
+                                            value={numberGuests}
                                             onChange={(e) => setNumberOfGuests(e.target.value)}
                                             required
                                             min="1"

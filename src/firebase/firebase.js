@@ -100,9 +100,10 @@ export const getBookings = async (userId) => {
 	  bookingsSnapshot.docs.map((doc) => {
 	    let docId = doc.id;
 	    bookings.push({
-		  docId,
-		  ...doc.data()
-		});
+        docId,
+        ...doc.data()
+		  });
+      return bookings;
 	  });
       return { bookings, error: null };
     } else {
