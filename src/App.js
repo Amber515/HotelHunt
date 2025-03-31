@@ -19,6 +19,7 @@ import {useState} from 'react'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import EditBooking from "./components/editBooking/editBookings";
 
 
 function App() {
@@ -63,7 +64,11 @@ function App() {
     {
       path: "/bookings",
       element: <Bookings />
-    }
+    },
+	{
+	  path: "/editbooking/:bookingId",
+	  element: <EditBooking />
+	}
   ];
   let routesElement = useRoutes(routesArray);
   return (
