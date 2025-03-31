@@ -10,6 +10,7 @@ import Map from "./components/map";
 import SearchResults from "./components/searchResults/searchResults";
 import ResetPassword from './components/auth/reset/reset'; // Adjust path as necessary
 import Bookings from "./components/bookings/bookings";
+import Confirmation from "./components/confirmation/confirmation";
 
 
 import { AuthProvider } from "./contexts/authContext";
@@ -65,10 +66,14 @@ function App() {
       path: "/bookings",
       element: <Bookings />
     },
-	{
-	  path: "/editbooking/:bookingId",
-	  element: <EditBooking />
-	}
+    {
+      path: "/confirmation",
+      element: <Confirmation/>
+    },
+    {
+      path: "/editbooking/:bookingId",
+      element: <EditBooking />
+    }
   ];
   let routesElement = useRoutes(routesArray);
   return (
