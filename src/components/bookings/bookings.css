@@ -24,6 +24,7 @@
 .existingBookingsContainer .bookingsContainer .booking {
 	background-color: #F5CBA0;
 	width: 80%;
+	cursor: pointer;
 	margin: 10px;
 	padding: 15px;
 	display: flex;

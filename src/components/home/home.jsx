@@ -75,7 +75,7 @@ export function SearchForm({ handleSubmit, setCity, setStartDate, setEndDate, se
                 <label className="form-label">Destination</label>
                 <input
                     placeholder='City'
-                    value={new URLSearchParams(window.location.search).get('city')}
+                    defaultValue={new URLSearchParams(window.location.search).get('city') || ""}
                     className="form-control"
                     onChange={(e) => setCity(e.target.value)}
                 />

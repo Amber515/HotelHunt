@@ -30,7 +30,6 @@ export function Checkout() {
 
     const hotelName = hotel?.name || "Test Hotel Suites";
     const hotelAddress = hotel?.address || "1234 Hotel Ave";
-    const hotelDescription = hotel?.description || "This is a placeholder description for the hotel.";
     const baseRate = hotel?.rate || "0";
     const oneDay = 1000 * 60 * 60 * 24;
     const diffInTime = new Date(endDate).getTime() - new Date(startDate).getTime();

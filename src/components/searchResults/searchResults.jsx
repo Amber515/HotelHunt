@@ -58,7 +58,6 @@ function SearchResults({ hotels, setHotels }) {
         let city = e.target[0].value.trim()
         if (city !== "") {
             axios.get('https://hotelhunt.adam-z.dev/gethotels/cityname?cityname=' + city.toLowerCase()).then(function (response) {
-                console.log(response.data);
                 setHotels(response.data);
                 navigate('/search?city=' + city, {
                     state: {
